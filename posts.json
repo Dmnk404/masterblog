@@ -3,12 +3,14 @@
         "id": 1,
         "author": "Dom",
         "title": "First",
-        "content": "New first Post"
+        "content": "New first Post edit",
+        "likes": 3
     },
     {
         "id": 3,
         "title": "Do it work?",
         "author": "Me",
-        "content": "Test 123."
+        "content": "Test 123.",
+        "likes": 0
     }
 ]
