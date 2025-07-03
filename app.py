@@ -6,16 +6,19 @@ app = Flask(__name__)
 POSTS_FILE = "posts.json"
 
 def load_posts():
+    '''Loads posts from posts.json'''
     if os.path.exists(POSTS_FILE):
         with open(POSTS_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
 
 def save_posts(posts):
+    '''Saves posts to posts.json'''
     with open(POSTS_FILE, "w", encoding="utf-8") as f:
         json.dump(posts, f, ensure_ascii=False, indent=4)
 
 def fetch_post_by_id(post_id):
+    '''Fetches post by id'''
     posts = load_posts()
     for post in posts:
         if post["id"] == post_id:
@@ -23,11 +26,23 @@ def fetch_post_by_id(post_id):
     return None
 @app.route('/')
 def index():
+    '''Render index page'''
     posts = load_posts()
     return render_template('index.html', posts=posts)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
+    """
+    Handles the addition of a new blog post.
+
+    On GET request:
+        - Renders the form for creating a new blog post.
+
+    On POST request:
+        - Retrieves form data.
+        - Adds the new post to the data store.
+        - Redirects the user back to the index page.
+    """
     if request.method == 'POST':
         title = request.form["title"]
         author = request.form["author"]
@@ -52,6 +67,7 @@ def add():
 
 @app.route("/delete/<int:post_id>", methods=["POST"])
 def delete(post_id):
+    '''Handles deletion of a blog post.'''
     posts = load_posts()
     posts = [post for post in posts if post["id"] != post_id]
     save_posts(posts)
@@ -59,6 +75,7 @@ def delete(post_id):
 
 @app.route('/update/<int:post_id>', methods=['GET', 'POST'])
 def update(post_id):
+    '''Handles updating of a blog post.'''
         posts = load_posts()
         post = next((p for p in posts if p["id"] == post_id), None)
 
@@ -79,6 +96,12 @@ def update(post_id):
 
 @app.route('/like/<int:post_id>', methods=['POST'])
 def like(post_id):
+    """
+    Increments the like count for the blog post with the given post_id.
+
+    Retrieves the post by ID, increases its like counter by one,
+    updates the data store, and redirects back to the index page.
+    """
     posts = load_posts()
 
     for post in posts:
