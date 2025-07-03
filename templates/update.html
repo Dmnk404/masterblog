@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Edit Blog Post</h2>
+<form method="POST">
+  <label>Author:</label><br>
+  <input type="text" name="author" value="{{ post.author }}"><br><br>
+
+  <label>Title:</label><br>
+  <input type="text" name="title" value="{{ post.title }}"><br><br>
+
+  <label>Content:</label><br>
+  <textarea name="content">{{ post.content }}</textarea><br><br>
+
+  <button type="submit">Update Post</button>
+</form>
+</body>
+</html>

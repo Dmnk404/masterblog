@@ -16,6 +16,7 @@
         <form method="POST" action="{{ url_for('delete', post_id=post.id) }}" style="display:inline;">
       <button type="submit">Delete</button>
     </form>
+        <a href="{{ url_for('update', post_id=post.id) }}">Edit</a>
     </div>
     {% endfor %}
 <a href="{{ url_for('add') }}">➕ Create new blogpost</a>
